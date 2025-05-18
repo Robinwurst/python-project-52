@@ -5,8 +5,9 @@ description = "task_manager"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "dj-database-url>=2.3.0",
-    "django>=5.2.1",
-    "gunicorn>=23.0.0",
-    "python-dotenv>=1.1.0",
+  "Django>=5.0",
+  "gunicorn",
+  "python-dotenv",
+  "dj-database-url",
+  "psycopg2-binary",
 ]
