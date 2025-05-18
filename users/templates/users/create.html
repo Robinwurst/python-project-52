@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load bootstrap5 %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+<h1>Регистрация</h1>
+<form method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% bootstrap_button "Зарегистрироваться" button_type="submit" %}
+</form>
+{% endblock %}

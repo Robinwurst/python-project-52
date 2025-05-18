@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Удаление пользователя{% endblock %}
+
+{% block content %}
+<h1>Вы уверены?</h1>
+<form method="post">
+    {% csrf_token %}
+    {% bootstrap_button "Удалить" button_type="submit" %}
+</form>
+{% endblock %}
