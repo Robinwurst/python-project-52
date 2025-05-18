@@ -10,4 +10,5 @@ dependencies = [
   "python-dotenv",
   "dj-database-url",
   "psycopg2-binary",
+  "django-bootstrap5>=25.1",
 ]
