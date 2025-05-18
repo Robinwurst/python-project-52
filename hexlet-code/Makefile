@@ -2,13 +2,13 @@ install:
 	uv sync
 
 migrate:
-	python manage.py migrate
+	uv run python manage.py migrate
 
 collectstatic:
-	python manage.py collectstatic --noinput
+	uv run python manage.py collectstatic --noinput
 
 build:
 	./build.sh
 
 render-start:
-	gunicorn task_manager.wsgi
+	uv run gunicorn task_manager.wsgi
