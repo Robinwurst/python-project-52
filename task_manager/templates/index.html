@@ -1,9 +1,12 @@
 {% extends "base.html" %}
-
 {% block title %}Главная{% endblock %}
-
 {% block content %}
-<h1 class="mb-4">Добро пожаловать в Task Manager</h1>
-<p class="lead">Это ваш центр управления задачами.</p>
-<a href="#" class="btn btn-primary">Начать</a>
+<h1 class="mb-4">Добро пожаловать!</h1>
+<p class="lead">Выберите действие:</p>
+
+<div class="list-group">
+    <a href="{% url 'users' %}" class="list-group-item list-group-item-action">Список пользователей</a>
+    <a href="{% url 'login' %}" class="list-group-item list-group-item-action">Вход</a>
+    <a href="{% url 'user_create' %}" class="list-group-item list-group-item-action">Регистрация</a>
+</div>
 {% endblock %}
