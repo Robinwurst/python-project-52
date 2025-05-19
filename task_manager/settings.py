@@ -86,7 +86,11 @@ DATABASES = {
     'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
 }
 
-
+MIGRATION_MODULES = {
+    'admin': 'django.contrib.admin.migrations',
+    'auth': 'django.contrib.auth.migrations',
+    'contenttypes': 'django.contrib.contenttypes.migrations',
+}
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/ #auth-password-validators
 
