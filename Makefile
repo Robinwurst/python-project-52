@@ -2,7 +2,9 @@ install:
 	uv sync --no-cache
 
 migrate:
-	uv run python manage.py migrate --noinput
+	echo "Resetting migrations..."
+	python manage.py migrate --fake
+	python manage.py migrate --fake-initial
 
 collectstatic:
 	uv run python manage.py collectstatic --noinput
