@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_bootstrap5',
     'users',
+    'statuses',
 ]
 
 MIDDLEWARE = [
@@ -124,3 +125,4 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.User'
+LOGIN_REDIRECT_URL = '/users/'

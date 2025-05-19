@@ -17,11 +17,18 @@ Including another URLconf
 
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
+from django.urls.base import reverse_lazy
 from django.views.generic import TemplateView
-
+from django.views.generic.base import RedirectView
+from statuses.views import StatusListView, StatusCreateView, StatusUpdateView, StatusDeleteView
 urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html'), name='home'),
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('users/', include('users.urls')),
+    path('accounts/profile/', RedirectView.as_view(url=reverse_lazy('users')), name='profile'),
+    path('statuses/', StatusListView.as_view(), name='statuses'),
+    path('statuses/create/', StatusCreateView.as_view(), name='status_create'),
+    path('statuses/<int:pk>/update/', StatusUpdateView.as_view(), name='status_update'),
+    path('statuses/<int:pk>/delete/', StatusDeleteView.as_view(), name='status_delete'),
 ]
