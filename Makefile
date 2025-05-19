@@ -1,5 +1,5 @@
 install:
-	uv sync
+	uv sync --no-cache
 
 migrate:
 	uv run python manage.py migrate --noinput
