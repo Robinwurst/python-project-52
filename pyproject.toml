@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "task_manager"
 readme = "README.md"
 requires-python = ">=3.13"
+
 dependencies = [
   "Django>=5.0",
   "gunicorn",
