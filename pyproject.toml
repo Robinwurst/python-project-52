@@ -12,3 +12,8 @@ dependencies = [
   "psycopg2-binary",
   "django-bootstrap5>=25.1",
 ]
+[tool.uv]
+workspace = true
+
+[tool.uv.sources]
+task-manager = { path = "./task_manager", develop = true }
