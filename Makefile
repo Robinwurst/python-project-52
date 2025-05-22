@@ -11,4 +11,4 @@ build:
 	./build.sh
 
 render-start:
-    /opt/render/project/src/.venv/bin/gunicorn task_manager.wsgi --bind 0.0.0.0:$PORT
+	gunicorn task_manager.wsgi --bind 0.0.0.0:${PORT}
