@@ -12,4 +12,4 @@ build:
 
 render-start:
 	echo "Запускаем Gunicorn на порту ${PORT}"
-	.venv/bin/gunicorn task_manager.wsgi --bind 0.0.0.0:$${PORT:-8000} --workers 4
+	gunicorn task_manager.wsgi --bind 0.0.0.0:${PORT:-8000} --workers 4
