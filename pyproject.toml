@@ -20,4 +20,4 @@ packages = ["task_manager", "statuses", "users"]
 [tool.setuptools.package-data]
 task_manager = ["templates/*.html", "templates/**/*.html"]
 statuses = ["templates/*.html", "templates/**/*.html"]
-users = ["templates/*.html", "templates/**/*.html"]ключаем сгенерированные staticfiles
+users = ["templates/*.html", "templates/**/*.html"]
