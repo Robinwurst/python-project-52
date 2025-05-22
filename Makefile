@@ -12,4 +12,4 @@ build:
 
 render-start:
 	echo "Запускаем Gunicorn на порту $PORT"
-	gunicorn task_manager.wsgi --bind 0.0.0.0:$PORT
+	gunicorn task_manager.wsgi --bind 0.0.0.0:${PORT}
