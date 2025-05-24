@@ -11,4 +11,4 @@ build:
 	./build.sh
 
 render-start:
-	source $HOME/.local/bin/env & uv run python gunicorn
+	uv run python gunicorn
