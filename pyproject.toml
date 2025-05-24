@@ -4,7 +4,9 @@ version = "0.1.0"
 description = "task_manager"
 readme = "README.md"
 requires-python = ">=3.13"
-
+packages = [
+  { include = "task_manager" },
+]
 dependencies = [
   "Django>=5.0",
   "gunicorn",
@@ -14,11 +16,3 @@ dependencies = [
   "django-bootstrap5>=25.1",
 ]
 
-[tool.setuptools]
-include-package-data = true
-packages = ["task_manager", "statuses", "users"]
-
-[tool.setuptools.package-data]
-task_manager = ["templates/*.html", "templates/**/*.html"]
-statuses = ["templates/*.html", "templates/**/*.html"]
-users = ["templates/*.html", "templates/**/*.html"]
