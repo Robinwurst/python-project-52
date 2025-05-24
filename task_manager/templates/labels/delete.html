@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Удаление метки{% endblock %}
+{% block content %}
+<h1>Вы уверены, что хотите удалить метку "{{ object.name }}"?</h1>
+<form method="post">
+    {% csrf_token %}
+    {% bootstrap_button "Да, удалить" button_type="submit" button_class="btn-danger" %}
+    <a href="{% url 'labels' %}" class="btn btn-secondary">Отмена</a>
+</form>
+{% endblock %}

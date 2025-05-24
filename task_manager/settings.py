@@ -37,9 +37,6 @@ ALLOWED_HOSTS = ['webserver', '127.0.0.1', 'localhost', 'https://python-project-
 # Application definition
 
 INSTALLED_APPS = [
-    # 'users',
-    # 'statuses',
-    # 'django_bootstrap5',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -49,6 +46,8 @@ INSTALLED_APPS = [
     'users',
     'statuses',
     'django_bootstrap5',
+    'labels',
+    'tasks'
 ]
 
 MIDDLEWARE = [

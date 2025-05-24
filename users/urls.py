@@ -1,9 +1,13 @@
-from django.urls import path
 from .views import UserListView, UserCreateView, UserUpdateView, UserDeleteView
+from django.urls import path, include
+from django.contrib.auth import views as auth_views
+
+app_name = 'users'
 
 urlpatterns = [
-    path('', UserListView.as_view(), name='users'),
-    path('create/', UserCreateView.as_view(), name='user_create'),
-    path('<int:pk>/update/', UserUpdateView.as_view(), name='user_update'),
-    path('<int:pk>/delete/', UserDeleteView.as_view(), name='user_delete'),
+    path('', UserListView.as_view(), name='index'),
+    path('create/', UserCreateView.as_view(), name='create'),
+    path('<int:pk>/update/', UserUpdateView.as_view(), name='update'),
+    path('<int:pk>/delete/', UserDeleteView.as_view(), name='delete'),
+    path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
 ]

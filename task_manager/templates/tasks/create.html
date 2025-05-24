@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% block title %}Создание задачи{% endblock %}
+{% block content %}
+<h1>Создание задачи</h1>
+<form method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% bootstrap_button "Создать" button_type="submit" %}
+</form>
+{% endblock %}
