@@ -9,6 +9,6 @@
 <form method="post">
     {% csrf_token %}
     {% bootstrap_button button_type="submit" content="Да, удалить" button_class="btn-danger" %}
-    <a href="{% url 'statuses:list' %}" class="btn btn-secondary">{% trans "Отмена" %}</a>
+    <a href="{% url 'statuses:index' %}" class="btn btn-secondary">{% trans "Отмена" %}</a>
 </form>
 {% endblock %}

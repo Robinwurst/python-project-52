@@ -14,16 +14,16 @@ class TaskListView(ListView):
 class TaskCreateView(CreateView):
     model = Task
     form_class = TaskForm
-    success_url = reverse_lazy('tasks')
+    success_url = reverse_lazy('tasks:index')
     template_name = 'tasks/create.html'
 
 class TaskUpdateView(UpdateView):
     model = Task
     form_class = TaskForm
-    success_url = reverse_lazy('tasks')
+    success_url = reverse_lazy('tasks:index')
     template_name = 'tasks/update.html'
 
 class TaskDeleteView(DeleteView):
     model = Task
-    success_url = reverse_lazy('tasks')
+    success_url = reverse_lazy('tasks:index')
     template_name = 'tasks/delete.html'

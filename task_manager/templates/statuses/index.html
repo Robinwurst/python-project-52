@@ -5,7 +5,7 @@
 
 {% block content %}
 <h1>{% trans "Статусы" %}</h1>
-<a href="{% url 'statuses' %}" class="btn btn-primary mb-3">{% trans "Создать статус" %}</a>
+<a href="{% url 'statuses:create' %}" class="btn btn-primary mb-3">{% trans "Создать статус" %}</a>
 
 {% if messages %}
     {% for message in messages %}
@@ -32,8 +32,8 @@
             <td>{{ status.name }}</td>
             <td>{{ status.created_at|date:"d.m.Y H:i" }}</td>
             <td>
-                <a href="{% url 'statuses' status.pk %}" class="btn btn-sm btn-primary">{% trans "Изменить" %}</a>
-                <a href="{% url 'statuses' status.pk %}" class="btn btn-sm btn-danger">{% trans "Удалить" %}</a>
+                <a href="{% url 'statuses:update' status.pk %}" class="btn btn-sm btn-primary">{% trans "Изменить" %}</a>
+                <a href="{% url 'statuses:delete' status.pk %}" class="btn btn-sm btn-danger">{% trans "Удалить" %}</a>
             </td>
         </tr>
         {% empty %}

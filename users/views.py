@@ -17,15 +17,15 @@ class UserListView(ListView):
 class UserCreateView(CreateView):
     form_class = UserCreateForm
     template_name = 'users/create.html'
-    success_url = reverse_lazy('user_create')
+    success_url = reverse_lazy('users:index')
 
 class UserUpdateView(UpdateView):
     model = User
     form_class = UserCreateForm
     template_name = 'users/update.html'
-    success_url = reverse_lazy('users')
+    success_url = reverse_lazy('users:index')
 
 class UserDeleteView(DeleteView):
     model = User
     template_name = 'users/delete.html'
-    success_url = reverse_lazy('users')
+    success_url = reverse_lazy('users:index')

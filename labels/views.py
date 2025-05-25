@@ -13,16 +13,16 @@ class LabelListView(ListView):
 class LabelCreateView(CreateView):
     model = Label
     form_class = LabelForm
-    success_url = reverse_lazy('labels')
+    success_url = reverse_lazy('labels:index')
     template_name = 'labels/create.html'
 
 class LabelUpdateView(UpdateView):
     model = Label
     form_class = LabelForm
-    success_url = reverse_lazy('labels')
+    success_url = reverse_lazy('labels:index')
     template_name = 'labels/update.html'
 
 class LabelDeleteView(DeleteView):
     model = Label
-    success_url = reverse_lazy('labels')
+    success_url = reverse_lazy('labels:index')
     template_name = 'labels/delete.html'
