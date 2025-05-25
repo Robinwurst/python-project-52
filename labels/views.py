@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from .models import Label
 from .forms import LabelForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from task_manager.mixins import ProtectedDeleteMixin
 
 class LabelListView(ListView):
     model = Label
@@ -24,7 +24,7 @@ class LabelUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('labels:index')
     template_name = 'labels/update.html'
 
-class LabelDeleteView(LoginRequiredMixin, DeleteView):
+class LabelDeleteView(LoginRequiredMixin, ProtectedDeleteMixin, DeleteView):
     model = Label
     success_url = reverse_lazy('labels:index')
     template_name = 'labels/delete.html'

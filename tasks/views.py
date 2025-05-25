@@ -5,6 +5,7 @@ from .models import Task
 from .forms import TaskForm
 from django.shortcuts import redirect
 from django.db import models
+from task_manager.mixins import ProtectedDeleteMixin
 
 TASKS_INDEX_URL = 'tasks:index'
 
@@ -37,7 +38,7 @@ class TaskUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy(TASKS_INDEX_URL)
 
 
-class TaskDeleteView(LoginRequiredMixin, DeleteView):
+class TaskDeleteView(LoginRequiredMixin, ProtectedDeleteMixin, DeleteView):
     model = Task
     template_name = 'tasks/delete.html'
     success_url = reverse_lazy(TASKS_INDEX_URL)
