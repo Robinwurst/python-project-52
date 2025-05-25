@@ -4,9 +4,10 @@ from django.views.generic import (
     DeleteView,
     ListView,
 )
+from django.contrib.auth.forms import UserChangeForm
 from django.urls import reverse_lazy
 from .models import User
-from .forms import UserCreateForm
+from .forms import UserCreateForm, UserUpdateForm
 
 
 class UserListView(ListView):
@@ -21,7 +22,7 @@ class UserCreateView(CreateView):
 
 class UserUpdateView(UpdateView):
     model = User
-    form_class = UserCreateForm
+    form_class = UserUpdateForm
     template_name = 'users/update.html'
     success_url = reverse_lazy('users:index')
 
