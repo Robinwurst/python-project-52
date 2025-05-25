@@ -8,7 +8,7 @@ from django.contrib.auth.forms import UserChangeForm
 from django.urls import reverse_lazy
 from .models import User
 from .forms import UserCreateForm, UserUpdateForm
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 class UserListView(ListView):
     model = User
@@ -20,13 +20,13 @@ class UserCreateView(CreateView):
     template_name = 'users/create.html'
     success_url = reverse_lazy('users:index')
 
-class UserUpdateView(UpdateView):
+class UserUpdateView(LoginRequiredMixin, UpdateView):
     model = User
     form_class = UserUpdateForm
     template_name = 'users/update.html'
     success_url = reverse_lazy('users:index')
 
-class UserDeleteView(DeleteView):
+class UserDeleteView(LoginRequiredMixin, DeleteView):
     model = User
     template_name = 'users/delete.html'
     success_url = reverse_lazy('users:index')

@@ -13,7 +13,7 @@ from django.utils.translation import gettext_lazy as _
 from task_manager.mixins import ProtectedDeleteMixin
 
 
-class StatusListView(LoginRequiredMixin, ListView):
+class StatusListView(ListView):
     model = Status
     template_name = 'statuses/index.html'
     context_object_name = 'statuses'
