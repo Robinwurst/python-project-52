@@ -66,11 +66,3 @@ class TaskDeleteView(LoginRequiredMixin, ProtectedDeleteMixin, DeleteView):
     model = Task
     template_name = 'tasks/delete.html'
     success_url = reverse_lazy(TASKS_INDEX_URL)
-
-    def post(self, request, *args, **kwargs):
-        try:
-            return super().post(request, *args, **kwargs)
-        except models.ProtectedError as e:
-            from django.contrib import messages
-            messages.error(request, 'Невозможно удалить задачу, потому что она используется в других объектах.')
-            return redirect(TASKS_INDEX_URL)
