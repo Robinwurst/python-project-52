@@ -6,7 +6,10 @@ from .forms import TaskForm
 from django.shortcuts import redirect
 from django.db import models
 from task_manager.mixins import ProtectedDeleteMixin
-
+from django.views.generic import ListView
+from users.models import User
+from statuses.models import Status
+from labels.models import Label
 TASKS_INDEX_URL = 'tasks:index'
 
 
@@ -15,8 +18,29 @@ class TaskListView(ListView):
     template_name = 'tasks/index.html'
     context_object_name = 'tasks'
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        status_id = self.request.GET.get('status')
+        creator_id = self.request.GET.get('creator')
+        executor_id = self.request.GET.get('executor')
+        label_id = self.request.GET.get('label')
+
+        if status_id:
+            queryset = queryset.filter(status_id=status_id)
+        if creator_id:
+            queryset = queryset.filter(creator_id=creator_id)
+        if executor_id:
+            queryset = queryset.filter(executor_id=executor_id)
+        if label_id:
+            queryset = queryset.filter(labels=label_id)
+
+        return queryset
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['statuses'] = Status.objects.all()
+        context['users'] = User.objects.all()
+        context['labels'] = Label.objects.all()
         return context
 
 

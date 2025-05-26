@@ -3,7 +3,62 @@
 {% block content %}
 <h1>Задачи</h1>
 <a href="{% url 'tasks:create' %}" class="btn btn-primary mb-3">Создать задачу</a>
+<form method="get">
+    <div class="row mb-3">
+        <div class="col-md-3">
+            <label for="id_status">Статус</label>
+            <select name="status" id="id_status" class="form-control">
+                <option value="">Все</option>
+                {% for status in statuses %}
+                    <option value="{{ status.id }}" {% if status.id|slugify == request.GET.status %}selected{% endif %}>
+                        {{ status.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
 
+        <div class="col-md-3">
+            <label for="id_creator">Автор</label>
+            <select name="creator" id="id_creator" class="form-control">
+                <option value="">Все</option>
+                {% for user in users %}
+                    <option value="{{ user.id }}" {% if user.id|slugify == request.GET.creator %}selected{% endif %}>
+                        {{ user.username }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-md-3">
+            <label for="id_executor">Исполнитель</label>
+            <select name="executor" id="id_executor" class="form-control">
+                <option value="">Все</option>
+                {% for user in users %}
+                    <option value="{{ user.id }}" {% if user.id|slugify == request.GET.executor %}selected{% endif %}>
+                        {{ user.username }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-md-3">
+            <label for="id_label">Метка</label>
+            <select name="label" id="id_label" class="form-control">
+                <option value="">Все</option>
+                {% for label in labels %}
+                    <option value="{{ label.id }}" {% if label.id|slugify == request.GET.label %}selected{% endif %}>
+                        {{ label.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-md-3 mt-2 pt-1">
+            <button type="submit" class="btn btn-primary mt-3">Фильтровать</button>
+            <a href="{% url 'tasks:index' %}" class="btn btn-secondary mt-3">Сбросить</a>
+        </div>
+    </div>
+</form>
 <table class="table">
     <thead>
         <tr>
