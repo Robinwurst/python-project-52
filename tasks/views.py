@@ -3,13 +3,14 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Task
 from .forms import TaskForm
-from django.shortcuts import redirect
-from django.db import models
 from task_manager.mixins import ProtectedDeleteMixin
 from django.views.generic import ListView
 from users.models import User
 from statuses.models import Status
 from labels.models import Label
+from django.views.generic import DetailView
+from .filters import TaskFilter
+
 TASKS_INDEX_URL = 'tasks:index'
 
 
@@ -66,3 +67,10 @@ class TaskDeleteView(LoginRequiredMixin, ProtectedDeleteMixin, DeleteView):
     model = Task
     template_name = 'tasks/delete.html'
     success_url = reverse_lazy(TASKS_INDEX_URL)
+    def get_queryset(self):
+        return super().get_queryset().filter(creator=self.request.user)
+
+class TaskDetailView(LoginRequiredMixin, DetailView):
+    model = Task
+    template_name = 'tasks/detail.html'
+    context_object_name = 'task'

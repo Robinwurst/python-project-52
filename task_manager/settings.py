@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'labels',
     'tasks',
     'django_bootstrap5',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
