@@ -4,7 +4,7 @@ from django.db.models import ProtectedError
 
 class ProtectedDeleteMixin:
     protected_message = 'Этот объект нельзя удалить, так как он используется'
-    protected_url = reverse_lazy('home')  # замени на нужный URL
+    protected_url = reverse_lazy('home')
 
     def delete(self, request, *args, **kwargs):
         try:
