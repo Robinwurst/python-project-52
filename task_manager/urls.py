@@ -28,4 +28,5 @@ urlpatterns = [
     path('statuses/', include('statuses.urls', namespace='statuses')),
     path('labels/', include('labels.urls', namespace='labels')),
     path('tasks/', include('tasks.urls', namespace='tasks')),
+    path("admin/", admin.site.urls),
 ]
