@@ -17,7 +17,5 @@ dependencies = [
   "uv",
 ]
 
-[tool.uv]
-requirements = [
-    "django-filter"
-]
+[project.optional-dependencies]
+filters = ["django-filter"]

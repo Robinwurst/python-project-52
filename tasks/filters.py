@@ -4,6 +4,7 @@ from users.models import User
 from statuses.models import Status
 from labels.models import Label
 
+
 class TaskFilter(django_filters.FilterSet):
     status = django_filters.ModelChoiceFilter(queryset=Status.objects.all())
     creator = django_filters.ModelChoiceFilter(queryset=User.objects.all())

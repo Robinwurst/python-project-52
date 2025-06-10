@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.db.models import ProtectedError
@@ -16,3 +17,9 @@ class ProtectedDeleteMixin:
 
     def post(self, request, *args, **kwargs):
         return self.delete(request, *args, **kwargs)
+
+
+class OnlyAuthorMixin(UserPassesTestMixin):
+    def test_func(self):
+        task = self.get_object()
+        return task.creator == self.request.user

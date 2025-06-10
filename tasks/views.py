@@ -1,23 +1,24 @@
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Task
 from .forms import TaskForm
-from task_manager.mixins import ProtectedDeleteMixin
-from django.views.generic import ListView
+from task_manager.mixins import ProtectedDeleteMixin, OnlyAuthorMixin
 from users.models import User
 from statuses.models import Status
 from labels.models import Label
 from django.views.generic import DetailView
 from .filters import TaskFilter
+from django_filters.views import FilterView
 
 TASKS_INDEX_URL = 'tasks:index'
 
 
-class TaskListView(ListView):
+class TaskListView(FilterView):
     model = Task
+    filterset_class = TaskFilter
     template_name = 'tasks/index.html'
-    context_object_name = 'tasks'
+    context_object_name = 'filter'
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -63,7 +64,7 @@ class TaskUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy(TASKS_INDEX_URL)
 
 
-class TaskDeleteView(LoginRequiredMixin, ProtectedDeleteMixin, DeleteView):
+class TaskDeleteView(OnlyAuthorMixin, ProtectedDeleteMixin, DeleteView):
     model = Task
     template_name = 'tasks/delete.html'
     success_url = reverse_lazy(TASKS_INDEX_URL)
