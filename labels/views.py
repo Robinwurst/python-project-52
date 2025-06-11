@@ -1,12 +1,13 @@
-from django.shortcuts import render, redirect
-
 # Create your views here.
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy
-from .models import Label
-from .forms import LabelForm
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from task_manager.mixins import ProtectedDeleteMixin, OnlyAuthorMixin
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+
+from task_manager.mixins import ProtectedDeleteMixin
+from .forms import LabelForm
+from .models import Label
 
 
 class LabelListView(ListView):
@@ -25,18 +26,16 @@ class LabelUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('labels:index')
     template_name = 'labels/update.html'
 
-class LabelDeleteView(OnlyAuthorMixin, ProtectedDeleteMixin, DeleteView):
+class LabelDeleteView(ProtectedDeleteMixin, DeleteView):
     model = Label
     template_name = 'labels/delete.html'
     success_url = reverse_lazy('labels:index')
+    protected_message = "Невозможно удалить метку, потому что она используется"
+    protected_url = reverse_lazy('labels:index')
 
     def delete(self, request, *args, **kwargs):
         label = self.get_object()
-
-
         if label.tasks.exists():
-            from django.contrib import messages
-            messages.error(request, "Метка используется в задачах и не может быть удалена")
-            return redirect('labels:index')
-
+            messages.error(request, "Метка используется в задачах")
+            return redirect(self.protected_url)
         return super().delete(request, *args, **kwargs)

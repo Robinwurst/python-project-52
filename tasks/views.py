@@ -54,7 +54,10 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.creator = self.request.user
-        return super().form_valid(form)
+        response = super().form_valid(form)
+        if 'labels' in form.cleaned_data:
+            form.instance.labels.set(form.cleaned_data['labels'])
+        return response
 
 
 class TaskUpdateView(LoginRequiredMixin, UpdateView):
@@ -68,8 +71,8 @@ class TaskDeleteView(OnlyAuthorMixin, ProtectedDeleteMixin, DeleteView):
     model = Task
     template_name = 'tasks/delete.html'
     success_url = reverse_lazy(TASKS_INDEX_URL)
-    def get_queryset(self):
-        return super().get_queryset().filter(creator=self.request.user)
+    protected_url = reverse_lazy(TASKS_INDEX_URL)
+
 
 class TaskDetailView(LoginRequiredMixin, DetailView):
     model = Task

@@ -53,13 +53,8 @@ class StatusDeleteView(LoginRequiredMixin, ProtectedDeleteMixin, DeleteView):
     model = Status
     template_name = 'statuses/delete.html'
     success_url = reverse_lazy('statuses:index')
-    protected_message = _('Невозможно удалить статус, потому что он используется')
+    protected_message = "Невозможно удалить статус, потому что он используется в задачах"
     protected_url = reverse_lazy('statuses:index')
 
-    def delete(self, request, *args, **kwargs):
-        try:
-            return super().delete(request, *args, **kwargs)
-        except models.ProtectedError as e:
-            from django.contrib import messages
-            messages.error(request, self.protected_message)
-            return redirect(self.protected_url)
+    def related_filter(self):
+        return {'status': self.get_object()}

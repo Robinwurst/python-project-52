@@ -32,3 +32,8 @@ class UserDeleteView(LoginRequiredMixin, ProtectedDeleteMixin, DeleteView):
     model = User
     template_name = 'users/delete.html'
     success_url = reverse_lazy('users:index')
+    protected_message = "Невозможно удалить пользователя, потому что он создал задачи"
+    protected_url = reverse_lazy('users:index')
+
+    def related_filter(self):
+        return {'creator': self.get_object()}
