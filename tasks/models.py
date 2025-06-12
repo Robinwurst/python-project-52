@@ -8,32 +8,32 @@ from django.utils.translation import gettext_lazy as _
 
 
 class Task(models.Model):
-    name = models.CharField(max_length=255, unique=True)
-    description = models.TextField()
+    name = models.CharField(_('Имя'), max_length=255)
+    description = models.TextField(_('Описание'))
     status = models.ForeignKey(
         Status,
         on_delete=models.PROTECT,
         null=True,
-        verbose_name=_('Status')
+        verbose_name=_('Статус')
     )
     executor = models.ForeignKey(
         User,
         on_delete=models.PROTECT,
         null=True,
         related_name='executed_tasks',
-        verbose_name=_('Executor')
+        verbose_name=_('Ответственный')
     )
     creator = models.ForeignKey(
         User,
         on_delete=models.PROTECT,
         related_name='created_tasks',
-        verbose_name=_('Author')
+        verbose_name=_('Автор')
     )
     labels = models.ManyToManyField(
         Label,
         related_name='tasks',
         blank=True,
-        verbose_name=_('Labels')
+        verbose_name=_('Метка')
     )
     created_at = models.DateTimeField(auto_now_add=True)
 
