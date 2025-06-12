@@ -1,12 +1,18 @@
 from django.test import TestCase
 from django.urls import reverse
+
+from users.models import User
 from .models import Status
 
 
 class StatusCRUDTests(TestCase):
     @classmethod
     def setUpTestData(cls):
-        cls.status = Status.objects.create(name='new_status')
+        cls.user = User.objects.create_user(username='testuser', password='12345')
+        cls.status = Status.objects.create(name='to_delete')
+
+    def setUp(self):
+        self.client.force_login(self.user)
 
     def test_status_creation(self):
         response = self.client.post(reverse('statuses:create'), {

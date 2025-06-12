@@ -1,3 +1,4 @@
+from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import (
     CreateView,
     UpdateView,
@@ -28,12 +29,12 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'users/update.html'
     success_url = reverse_lazy('users:index')
 
-class UserDeleteView(LoginRequiredMixin, ProtectedDeleteMixin, DeleteView):
+class UserDeleteView(LoginRequiredMixin, ProtectedDeleteMixin, SuccessMessageMixin, DeleteView):
     model = User
     template_name = 'users/delete.html'
     success_url = reverse_lazy('users:index')
     protected_message = _("Невозможно удалить пользователя, потому что он используется в задачах")
     protected_url = reverse_lazy('users:index')
-
+    success_message = "Пользователь успешно удален"
     def related_filter(self):
         return {'creator': self.get_object()}
