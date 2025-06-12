@@ -19,6 +19,9 @@ class LabelListView(LoginRequiredMixin, ListView):
     ordering = ['id']
     paginate_by = 10
 
+    def get_queryset(self):
+        return super().get_queryset().order_by('id')
+
 class LabelCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Label
     form_class = LabelForm

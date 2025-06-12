@@ -18,6 +18,9 @@ class UserListView(ListView):
     context_object_name = 'users'
     paginate_by = 10
 
+    def get_queryset(self):
+        return super().get_queryset().order_by('id')
+
 class UserCreateView(CreateView):
     form_class = UserCreateForm
     template_name = 'users/create.html'

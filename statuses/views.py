@@ -18,6 +18,9 @@ class StatusListView(LoginRequiredMixin, ListView):
     ordering = ['id']
     paginate_by = 10
 
+    def get_queryset(self):
+        return super().get_queryset().order_by('id')
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['messages'] = messages.get_messages(self.request)
