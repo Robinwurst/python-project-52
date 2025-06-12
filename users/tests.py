@@ -63,7 +63,7 @@ class UserCRUDTests(TestCase):
         self.assertTrue(any("используется" in str(msg) for msg in messages_list))
 
     def test_user_can_be_deleted_if_not_used(self):
-        # Создаём нового пользователя без связей
+
         new_user = User.objects.create_user(
             username='new_user',
             password='testpass123'
@@ -72,15 +72,15 @@ class UserCRUDTests(TestCase):
 
         response = self.client.post(reverse('users:delete', args=[new_user.id]))
 
-        # Проверяем редирект
+
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse('users:index'))
 
-        # Проверяем, что пользователь удален
+
         with self.assertRaises(User.DoesNotExist):
             new_user.refresh_from_db()
 
-        # Проверяем наличие сообщения об успешном удалении
+
         messages_list = list(response.wsgi_request._messages)
         self.assertTrue(
             any("успешно удален" in str(msg) for msg in messages_list),
