@@ -1,11 +1,16 @@
 {% extends "base.html" %}
-{% load django_bootstrap5 %}
-{% block title %}Удаление метки{% endblock %}
+{% load i18n %}
+
+{% block title %}{% trans "Удаление метки" %}{% endblock %}
+
 {% block content %}
-<h1>Вы уверены, что хотите удалить метку "{{ object.name }}"?</h1>
+<h1>{% trans "Удаление метки" %}</h1>
+
+<p>{% trans "Вы уверены, что хотите удалить метку" %} "{{ object.name }}"?</p>
+
 <form method="post">
     {% csrf_token %}
-    {% bootstrap_button "Да, удалить" button_type="submit" button_class="btn-danger" %}
-    <a href="{% url 'labels:index' %}" class="btn btn-secondary">Отмена</a>
+    <button type="submit" class="btn btn-danger">{% trans "Да, удалить" %}</button>
+    <a href="{% url 'labels:index' %}" class="btn btn-secondary">{% trans "Отмена" %}</a>
 </form>
 {% endblock %}

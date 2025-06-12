@@ -1,38 +1,42 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import UserPassesTestMixin
-from django.db.models import ProtectedError
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.db import models
-from django.core.exceptions import ObjectDoesNotExist
-
-from tasks.models import Task
-
+from django.views.generic import DeleteView
+from django.db.models import ProtectedError
+from django.db import IntegrityError
+from django.utils.translation import gettext_lazy as _
 
 class ProtectedDeleteMixin:
-    protected_message = "Этот объект нельзя удалить, так как он используется"
-    protected_url = reverse_lazy("tasks:index")
+    """
+    Миксин для защиты от удаления объекта, если он используется.
+    Должен стоять первым в списке родителей!
+    """
+    protected_message = _("Невозможно удалить объект, потому что он используется")
+    protected_url = reverse_lazy('users:index')
 
-    def delete(self, request, *args, **kwargs):
+    def form_valid(self, form):
         obj = self.get_object()
 
-        # Проверка ManyToMany (для меток)
+
         if hasattr(obj, 'tasks') and obj.tasks.exists():
-            messages.error(request, self.protected_message)
+            messages.error(self.request, self.protected_message)
             return redirect(self.protected_url)
 
-        # Проверка ForeignKey (для статусов, пользователей)
+
         if hasattr(self, 'related_filter'):
+            from tasks.models import Task
             filter_kwargs = self.related_filter()
             if Task.objects.filter(**filter_kwargs).exists():
-                messages.error(request, self.protected_message)
+                messages.error(self.request, self.protected_message)
                 return redirect(self.protected_url)
 
         try:
-            return super().delete(request, *args, **kwargs)
+            return super().form_valid(form)
         except ProtectedError:
-            messages.error(request, self.protected_message)
+            messages.error(self.request, self.protected_message)
             return redirect(self.protected_url)
+
 
 class OnlyAuthorMixin(UserPassesTestMixin):
     permission_denied_message = "Вы не можете редактировать или удалять чужие задачи"

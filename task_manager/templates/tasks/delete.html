@@ -1,11 +1,15 @@
 {% extends "base.html" %}
-{% load django_bootstrap5 %}
-{% block title %}Удаление задачи{% endblock %}
+{% load i18n %}
+
+{% block title %}{{ title }}{% endblock %}
+
 {% block content %}
-<h1>Вы уверены, что хотите удалить задачу "{{ object.name }}"?</h1>
+<h1>{{ title }}</h1>
+<p>{% trans "Вы уверены, что хотите удалить задачу" %} "{{ object.name }}"?</p>
+
 <form method="post">
     {% csrf_token %}
-    {% bootstrap_button "Да, удалить" button_type="submit" button_class="btn-danger" %}
-    <a href="{% url 'tasks:index' %}" class="btn btn-secondary">Отмена</a>
+    <button type="submit" class="btn btn-danger">{% trans "Да, удалить" %}</button>
+    <a href="{% url 'tasks:index' %}" class="btn btn-secondary">{% trans "Отмена" %}</a>
 </form>
 {% endblock %}

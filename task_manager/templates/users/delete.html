@@ -1,12 +1,16 @@
 {% extends "base.html" %}
-{% load django_bootstrap5 %}
+{% load i18n %}
 
-{% block title %}Удаление пользователя{% endblock %}
+{% block title %}{% trans "Удаление пользователя" %}{% endblock %}
 
 {% block content %}
-<h1>Вы уверены?</h1>
+<h1>{% trans "Удаление пользователя" %}</h1>
+
+<p>{% trans "Вы уверены, что хотите удалить пользователя" %} "{{ object.get_full_name|default:object.username }}"?</p>
+
 <form method="post">
     {% csrf_token %}
-    {% bootstrap_button "Удалить" button_type="submit" %}
+    <button type="submit" class="btn btn-danger">{% trans "Да, удалить" %}</button>
+    <a href="{% url 'users:index' %}" class="btn btn-secondary">{% trans "Отмена" %}</a>
 </form>
 {% endblock %}

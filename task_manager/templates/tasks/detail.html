@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Просмотр задачи" %}{% endblock %}
+
+{% block content %}
+<h1>{% trans "Просмотр задачи" %}</h1>
+
+<ul>
+    <li><strong>{% trans "Название" %}:</strong> {{ task.name }}</li>
+    <li><strong>{% trans "Описание" %}:</strong> {{ task.description }}</li>
+    <li><strong>{% trans "Статус" %}:</strong> {{ task.status }}</li>
+    <li><strong>{% trans "Исполнитель" %}:</strong> {{ task.executor }}</li>
+    <li><strong>{% trans "Автор" %}:</strong> {{ task.creator }}</li>
+    <li><strong>{% trans "Метки" %}:</strong>
+        {% for label in task.labels.all %}
+            {{ label.name }}{% if not forloop.last %}, {% endif %}
+        {% empty %}
+            &mdash;
+        {% endfor %}
+    </li>
+</ul>
+
+<a href="{% url 'tasks:update' task.id %}" class="btn btn-warning">{% trans "Редактировать" %}</a>
+<a href="{% url 'tasks:delete' task.id %}" class="btn btn-danger">{% trans "Удалить" %}</a>
+{% endblock %}

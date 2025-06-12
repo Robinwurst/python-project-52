@@ -16,11 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.contrib.auth import views as auth_views
-from django.urls.base import reverse_lazy
 from django.views.generic import TemplateView
-from django.views.generic.base import RedirectView
-from statuses.views import StatusListView, StatusCreateView, StatusUpdateView, StatusDeleteView
+
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html'), name='home'),

@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Менеджер задач{% endblock %}</title>
+
     {% load django_bootstrap5 %}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
 </head>
 <body class="container mt-4">
+
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
     <div class="container-fluid">
@@ -36,7 +38,9 @@
                     <li class="nav-item">
                         <form action="{% url 'users:logout' %}" method="post">
                             {% csrf_token %}
-                            <button type="submit" class="nav-link btn btn-link">Выйти ({{ user.username }})</button>
+                            <button type="submit" class="nav-link btn btn-link">
+                                Выйти ({{ user.username }})
+                            </button>
                         </form>
                     </li>
                 {% else %}
@@ -52,18 +56,15 @@
     </div>
 </nav>
 
+
 <div class="mb-4">
-{% if messages %}
-    {% for message in messages %}
-        <div class="alert alert-{{ message.tags }}">
-            {{ message }}
-        </div>
-    {% endfor %}
-{% endif %}
+    {% bootstrap_messages %}
 </div>
+
 
 {% block content %}
 {% endblock %}
+
 
 <footer class="mt-5 text-center text-muted">
     <p>© {% now "Y" %} Task Manager</p>

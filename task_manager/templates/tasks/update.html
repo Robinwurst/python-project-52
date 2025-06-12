@@ -1,11 +1,14 @@
 {% extends "base.html" %}
-{% load django_bootstrap5 %}
-{% block title %}Редактирование задачи{% endblock %}
+{% load i18n django_bootstrap5 %}
+
+{% block title %}{{ title }}{% endblock %}
+
 {% block content %}
-<h1>Редактирование задачи "{{ object.name }}"</h1>
+<h1 class="mb-4">{{ title }}</h1>
+
 <form method="post">
     {% csrf_token %}
     {% bootstrap_form form %}
-    {% bootstrap_button "Обновить" button_type="submit" %}
+    <input type="submit" class="btn btn-primary" value="{{ button_name }}">
 </form>
 {% endblock %}

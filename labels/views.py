@@ -1,41 +1,50 @@
-# Create your views here.
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from task_manager.mixins import ProtectedDeleteMixin
-from .forms import LabelForm
 from .models import Label
+from .forms import LabelForm
 
+LABEL_INDEX_URL = 'labels:index'
+LABEL_TEMPLATE_PATH = 'labels/'
 
-class LabelListView(ListView):
+class LabelListView(LoginRequiredMixin, ListView):
     model = Label
-    template_name = 'labels/index.html'
+    template_name = f'{LABEL_TEMPLATE_PATH}index.html'
+    context_object_name = 'labels'
+    ordering = ['id']
 
-class LabelCreateView(LoginRequiredMixin, CreateView):
+
+class LabelCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Label
     form_class = LabelForm
-    success_url = reverse_lazy('labels:index')
-    template_name = 'labels/create.html'
+    template_name = f'{LABEL_TEMPLATE_PATH}create.html'
+    success_url = reverse_lazy(LABEL_INDEX_URL)
+    success_message = _("Метка успешно создана")
 
-class LabelUpdateView(LoginRequiredMixin, UpdateView):
+
+class LabelUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Label
     form_class = LabelForm
-    success_url = reverse_lazy('labels:index')
-    template_name = 'labels/update.html'
+    template_name = f'{LABEL_TEMPLATE_PATH}update.html'
+    success_url = reverse_lazy(LABEL_INDEX_URL)
+    success_message = _("Метка успешно обновлена")
+
 
 class LabelDeleteView(ProtectedDeleteMixin, DeleteView):
     model = Label
     template_name = 'labels/delete.html'
     success_url = reverse_lazy('labels:index')
-    protected_message = "Невозможно удалить метку, потому что она используется"
+    protected_message = _("Невозможно удалить метку, потому что она используется в задачах")
     protected_url = reverse_lazy('labels:index')
 
     def delete(self, request, *args, **kwargs):
         label = self.get_object()
         if label.tasks.exists():
-            messages.error(request, "Метка используется в задачах")
+            messages.error(request, self.protected_message)
             return redirect(self.protected_url)
         return super().delete(request, *args, **kwargs)
