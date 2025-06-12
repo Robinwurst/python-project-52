@@ -4,11 +4,11 @@
 {% block title %}{% trans "Регистрация" %}{% endblock %}
 
 {% block content %}
-<h1>{% trans "Регистрация" %}</h1>
+<h1 class="mb-4">{% trans "Создание пользователя" %}</h1>
 
 <form method="post">
     {% csrf_token %}
     {% bootstrap_form form %}
-    <input type="submit" class="btn btn-primary" value="{% trans "Зарегистрироваться" %}">
+    {% bootstrap_button "Зарегистрироваться" button_type="submit" button_class="btn-primary" %}
 </form>
 {% endblock %}

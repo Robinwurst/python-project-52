@@ -23,7 +23,7 @@ class TaskFilter(django_filters.FilterSet):
         field_name='creator',
         label=_('Автор'),
     )
-    labels = django_filters.ModelMultipleChoiceFilter(
+    labels = django_filters.ModelChoiceFilter(
         queryset=Label.objects.all(),
         field_name='labels',
         label=_('Метки'),

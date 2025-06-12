@@ -1,20 +1,19 @@
 {% extends "base.html" %}
 {% load i18n %}
-
 {% block title %}{% trans "Статусы" %}{% endblock %}
 
 {% block content %}
-<h1>{% trans "Статусы" %}</h1>
+<h1 class="mb-4">{% trans "Статусы" %}</h1>
 
-<a href="{% url 'statuses:create' %}" class="btn btn-primary mb-3">{% trans "Создать статус" %}</a>
+<a href="{% url 'statuses:create' %}" class="btn btn-success mb-3">{% trans "Создать статус" %}</a>
 
-<table class="table table-striped">
+<table class="table table-striped align-middle">
     <thead>
         <tr>
             <th>ID</th>
             <th>{% trans "Имя" %}</th>
             <th>{% trans "Дата создания" %}</th>
-            <th>{% trans "Действия" %}</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -23,9 +22,11 @@
             <td>{{ status.id }}</td>
             <td>{{ status.name }}</td>
             <td>{{ status.created_at|date:"d.m.Y H:i" }}</td>
-            <td>
-                <a href="{% url 'statuses:update' status.pk %}" class="btn btn-sm btn-primary">{% trans "Изменить" %}</a>
-                <a href="{% url 'statuses:delete' status.pk %}" class="btn btn-sm btn-danger">{% trans "Удалить" %}</a>
+            <td class="text-end">
+                <div class="d-flex gap-2 justify-content-end">
+                    <a href="{% url 'statuses:update' status.id %}" class="btn btn-sm btn-primary">{% trans "Редактировать" %}</a>
+                    <a href="{% url 'statuses:delete' status.id %}" class="btn btn-sm btn-danger">{% trans "Удалить" %}</a>
+                </div>
             </td>
         </tr>
         {% empty %}

@@ -1,6 +1,5 @@
 {% extends "base.html" %}
-{% load i18n django_bootstrap5 %}
-
+{% load i18n %}
 {% block title %}{% trans "Задачи" %}{% endblock %}
 
 {% block content %}
@@ -9,33 +8,56 @@
 <a href="{% url 'tasks:create' %}" class="btn btn-success mb-3">{% trans "Создать задачу" %}</a>
 
 <form method="get" class="mb-4">
-    <div class="row g-3 align-items-center">
-        <div class="col-md-3">
-            {{ filter.form.status }}
+
+    <div class="card bg-light p-3 mb-3">
+        <div class="mb-2">
+            {{ filter.form.status.label_tag }}
         </div>
-        <div class="col-md-3">
-            {{ filter.form.executor }}
+        {{ filter.form.status }}
+    </div>
+
+
+    <div class="card bg-light p-3 mb-3">
+        <div class="mb-2">
+            {{ filter.form.executor.label_tag }}
         </div>
-        <div class="col-md-3">
-            {{ filter.form.creator }}
+        {{ filter.form.executor }}
+    </div>
+
+
+    <div class="card bg-light p-3 mb-3">
+        <div class="mb-2">
+            {{ filter.form.creator.label_tag }}
         </div>
-        <div class="col-md-3">
-            {{ filter.form.labels }}
+        {{ filter.form.creator }}
+    </div>
+
+
+    <div class="card bg-light p-3 mb-3">
+        <div class="mb-2">
+            {{ filter.form.labels.label_tag }}
         </div>
-        <div class="col-md-3 d-flex align-items-center">
+        {{ filter.form.labels }}
+    </div>
+
+
+    <div class="card bg-light p-3 mb-3 d-flex flex-column">
+        <div class="form-check">
             {{ filter.form.own_tasks }}
             <label for="{{ filter.form.own_tasks.auto_id }}" class="form-check-label ms-2">
                 {% trans "Только мои задачи" %}
             </label>
         </div>
-        <div class="col-md-3 d-flex gap-2">
-            <button type="submit" class="btn btn-primary">{% trans "Фильтровать" %}</button>
-            <a href="{% url 'tasks:index' %}" class="btn btn-secondary">{% trans "Сбросить" %}</a>
-        </div>
+    </div>
+
+
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary">{% trans "Показать" %}</button>
+        <a href="{% url 'tasks:index' %}" class="btn btn-secondary">{% trans "Сбросить" %}</a>
     </div>
 </form>
 
-{% if tasks %}
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -44,13 +66,13 @@
             <th>{% trans "Исполнитель" %}</th>
             <th>{% trans "Автор" %}</th>
             <th>{% trans "Метки" %}</th>
-            <th>{% trans "Действия" %}</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         {% for task in tasks %}
         <tr>
-            <td>{{ task.name }}</td>
+            <td><a href="{% url 'tasks:detail' task.id %}">{{ task.name }}</a></td>
             <td>{{ task.status }}</td>
             <td>{{ task.executor }}</td>
             <td>{{ task.creator }}</td>
@@ -61,26 +83,29 @@
                     &mdash;
                 {% endfor %}
             </td>
-            <td>
-                <a href="{% url 'tasks:update' task.id %}" class="btn btn-sm btn-warning">{% trans "Редактировать" %}</a>
-                <a href="{% url 'tasks:delete' task.id %}" class="btn btn-sm btn-danger">{% trans "Удалить" %}</a>
+            <td class="text-end">
+                <a href="{% url 'tasks:update' task.id %}" class="btn btn-sm btn-primary">{% trans "Редактировать" %}</a>
+                <a href="{% url 'tasks:delete' task.id %}" class="btn btn-danger btn-sm">{% trans "Удалить" %}</a>
             </td>
         </tr>
+        {% empty %}
+        <tr><td colspan="6" class="text-center">{% trans "Задачи не найдены." %}</td></tr>
         {% endfor %}
     </tbody>
 </table>
-{% else %}
-<div class="alert alert-info">{% trans "Задачи не найдены." %}</div>
-{% endif %}
 
-<!-- Пагинация -->
+
 {% if is_paginated %}
-<nav aria-label="Page navigation">
+<nav aria-label="Page navigation" class="mt-4">
     <ul class="pagination justify-content-center">
         {% if page_obj.has_previous %}
-        <li class="page-item"><a class="page-link" href="?{{ filter.form.urlencode }}&page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+        <li class="page-item">
+            <a class="page-link" href="?{{ filter.form.urlencode }}&page={{ page_obj.previous_page_number }}">&laquo;</a>
+        </li>
         {% else %}
-        <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+        <li class="page-item disabled">
+            <span class="page-link">&laquo;</span>
+        </li>
         {% endif %}
 
         {% for num in paginator.page_range %}
@@ -90,9 +115,13 @@
         {% endfor %}
 
         {% if page_obj.has_next %}
-        <li class="page-item"><a class="page-link" href="?{{ filter.form.urlencode }}&page={{ page_obj.next_page_number }}">&raquo;</a></li>
+        <li class="page-item">
+            <a class="page-link" href="?{{ filter.form.urlencode }}&page={{ page_obj.next_page_number }}">&raquo;</a>
+        </li>
         {% else %}
-        <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+        <li class="page-item disabled">
+            <span class="page-link">&raquo;</span>
+        </li>
         {% endif %}
     </ul>
 </nav>
