@@ -3,32 +3,27 @@ from django.urls import reverse
 from .models import Label
 
 
-class LabelTest(TestCase):
-    def setUp(self):
-        self.label = Label.objects.create(name='Метка 1')
+class LabelCRUDTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.label = Label.objects.create(name='bug')
 
-    def test_label_create(self):
+    def test_label_creation(self):
         response = self.client.post(reverse('labels:create'), {
-            'name': 'Метка 2'
+            'name': 'feature'
         })
-
-        print(response.status_code)
-        print(response.content.decode())
-        if 'form' in response.context:
-            print(response.context['form'].errors) 
-
         self.assertEqual(response.status_code, 302)
-        self.assertTrue(Label.objects.filter(name='Метка 2').exists())
+        self.assertTrue(Label.objects.filter(name='feature').exists())
 
     def test_label_update(self):
         response = self.client.post(reverse('labels:update', args=[self.label.id]), {
-            'name': 'Метка обновлена'
+            'name': 'feature_label'
         })
-        self.label.refresh_from_db()
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(self.label.name, 'Метка обновлена')
+        self.label.refresh_from_db()
+        self.assertEqual(self.label.name, 'feature_label')
 
-    def test_label_delete(self):
+    def test_label_deletion(self):
         response = self.client.post(reverse('labels:delete', args=[self.label.id]))
         self.assertEqual(response.status_code, 302)
         self.assertFalse(Label.objects.filter(id=self.label.id).exists())

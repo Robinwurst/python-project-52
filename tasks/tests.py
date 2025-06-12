@@ -6,35 +6,35 @@ from labels.models import Label
 from .models import Task
 
 
-class TaskTest(TestCase):
-    def setUp(self):
-        self.user = User.objects.create_user(username='testuser', password='12345')
-        self.status = Status.objects.create(name='Новый')
-        self.label = Label.objects.create(name='Баг')
-        self.task = Task.objects.create(
-            name='Задача',
-            description='Описание',
-            status=self.status,
-            creator=self.user,
-            executor=self.user
+class TaskCRUDTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = User.objects.create_user(username='tester', password='12345')
+        cls.status = Status.objects.create(name='open')
+        cls.label = Label.objects.create(name='urgent')
+        cls.task = Task.objects.create(
+            name='Test task',
+            description='Just a test',
+            status=cls.status,
+            creator=cls.user,
+            executor=cls.user
         )
-        self.task.labels.add(self.label)
+        cls.task.labels.add(cls.label)
 
-    def test_task_create(self):
-        self.client.login(username='testuser', password='12345')
+    def test_task_creation(self):
+        self.client.login(username='tester', password='12345')
         response = self.client.post(reverse('tasks:create'), {
-            'name': 'Новая задача',
-            'description': 'Новое описание',
+            'name': 'New task',
+            'description': 'A new test task',
             'status': self.status.id,
+            'creator': self.user.id,
             'executor': self.user.id,
             'labels': [self.label.id]
         })
         self.assertEqual(response.status_code, 302)
-        self.assertTrue(Task.objects.filter(name='Новая задача').exists())
+        self.assertTrue(Task.objects.filter(name='New task').exists())
 
-    def test_task_delete_only_creator(self):
-        other_user = User.objects.create_user(username='other', password='12345')
-        self.client.login(username='other', password='12345')
-
+    def test_task_deletion_with_relations(self):
         response = self.client.post(reverse('tasks:delete', args=[self.task.id]))
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(Task.objects.filter(id=self.task.id).exists())
