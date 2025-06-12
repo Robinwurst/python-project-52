@@ -8,10 +8,7 @@ from django.db import IntegrityError
 from django.utils.translation import gettext_lazy as _
 
 class ProtectedDeleteMixin:
-    """
-    Миксин для защиты от удаления объекта, если он используется.
-    Должен стоять первым в списке родителей!
-    """
+
     protected_message = _("Невозможно удалить объект, потому что он используется")
     protected_url = reverse_lazy('users:index')
 

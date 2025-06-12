@@ -17,7 +17,7 @@ class LabelListView(LoginRequiredMixin, ListView):
     template_name = f'{LABEL_TEMPLATE_PATH}index.html'
     context_object_name = 'labels'
     ordering = ['id']
-
+    paginate_by = 10
 
 class LabelCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Label
