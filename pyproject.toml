@@ -24,3 +24,6 @@ filters = ["django-filter"]
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "task_manager.settings"
 python_files = ["test_*.py", "*_test.py"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["task_manager"]
