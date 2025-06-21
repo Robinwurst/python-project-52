@@ -14,5 +14,3 @@ render-start:
 	curl -LsSf https://astral.sh/uv/install.sh  | sh && \
     uv run gunicorn task_manager.wsgi
 
-test:
-    PYTHONPATH=/opt/render/project uv run python -m pytest
