@@ -1,6 +1,6 @@
 from django.test import TestCase
-from .forms import LabelForm
-from .models import Label
+from labels.forms import LabelForm
+from labels.models import Label
 from users.models import User
 from django.urls import reverse
 

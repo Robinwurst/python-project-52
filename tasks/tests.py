@@ -3,7 +3,7 @@ from django.urls import reverse
 from users.models import User
 from statuses.models import Status
 from labels.models import Label
-from .models import Task
+from tasks.models import Task
 
 
 class TaskCRUDTests(TestCase):

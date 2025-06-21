@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from users.models import User
-from .models import Status
+from statuses.models import Status
 
 
 class StatusCRUDTests(TestCase):

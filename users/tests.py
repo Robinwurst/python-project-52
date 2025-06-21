@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.contrib.auth import get_user_model
 from tasks.models import Task
 from statuses.models import Status
-from labels.models import Label
+
 
 User = get_user_model()
 
