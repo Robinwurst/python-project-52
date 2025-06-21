@@ -18,12 +18,9 @@ dependencies = [
   "django-filter>=25.1",
 ]
 
-[project.optional-dependencies]
-filters = ["django-filter"]
+[tool.hatch.build.targets.wheel]
+packages = ["task_manager"]
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "task_manager.settings"
-python_files = ["test_*.py", "*_test.py"]
-
-[tool.hatch.build.targets.wheel]
-packages = ["task_manager"]
+python_files = ["test_*.py", "*_test.py", "testing/python/*.py"]
