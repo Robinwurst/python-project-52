@@ -89,11 +89,22 @@ WSGI_APPLICATION = 'task_manager.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/ #databases
 
-DATABASES = {
-    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'),
-                                      conn_max_age=600,
-                                      conn_health_checks=True,
-                                      ) }
+# DATABASES = {
+#     'default': dj_database_url.config(default=os.getenv('DATABASE_URL'),
+#                                       conn_max_age=600,
+#                                       conn_health_checks=True,
+#                                       ) }
+if os.environ.get("DATABASE_URL") is not None:
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ["DATABASE_URL"])
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 MIGRATION_MODULES = {
     'admin': 'django.contrib.admin.migrations',
