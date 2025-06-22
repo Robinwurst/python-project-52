@@ -17,8 +17,8 @@ from dotenv import load_dotenv
 from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'
-BASE_DIR = Path(__file__).resolve().parent
-
+# BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 # Load environment variables from .env file (only in development)
 load_dotenv(BASE_DIR / '.env')
 
@@ -95,9 +95,11 @@ WSGI_APPLICATION = 'task_manager.wsgi.application'
 #                                       conn_health_checks=True,
 #                                       ) }
 if os.environ.get("DATABASE_URL") is not None:
-    DATABASES = {
-        'default': dj_database_url.parse(os.environ["DATABASE_URL"])
-    }
+    DATABASES = {'default': dj_database_url.config(default=os.getenv('DATABASE_URL'),
+                                      conn_max_age=600,
+                                      conn_health_checks=True,
+                                      ) }
+
 else:
     DATABASES = {
         'default': {
