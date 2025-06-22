@@ -18,9 +18,19 @@ dependencies = [
   "django-filter>=25.1",
 ]
 
+[project.optional-dependencies]
+dev = [
+    "flake8>=7.1.1",
+    "pytest-django>=4.8.0",
+]
+test = [
+    "pytest",
+    "pytest-django>=4.8.0",
+]
+
 [tool.hatch.build.targets.wheel]
 packages = ["task_manager"]
 
 [tool.pytest.ini_options]
-DJANGO_SETTINGS_MODULE = "task_manager.settings"
 pytest = "*"
+pytest-django = "^4.8.0"
