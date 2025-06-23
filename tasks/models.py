@@ -26,7 +26,7 @@ class Task(models.Model):
     creator = models.ForeignKey(
         User,
         on_delete=models.PROTECT,
-        related_name='created_tasks',
+        related_name='created_tasks', null=True, blank=True,
         verbose_name=_('Автор')
     )
     labels = models.ManyToManyField(
