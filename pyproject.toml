@@ -11,7 +11,7 @@ packages = [
 
 
 dependencies = [
-  "Django>=5.0",
+  "django",
   "gunicorn",
   "python-dotenv",
   "dj-database-url",
@@ -19,7 +19,7 @@ dependencies = [
   "django-bootstrap5>=25.1",
   "uv",
   "django-filter>=25.1",
-    "rollbar",
+  "rollbar",
 ]
 
 [project.optional-dependencies]
