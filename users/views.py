@@ -44,15 +44,15 @@ class UserDeleteView(LoginRequiredMixin, ProtectedDeleteMixin, SuccessMessageMix
     def related_filter(self):
         return {'creator': self.get_object()}
 
-class CustomLoginView(SuccessMessageMixin, LoginView):
-    template_name = 'users/login.html'
-    success_message = "Вы залогинены"
-    next_page = reverse_lazy('home')
-
-class CustomLogoutView(SuccessMessageMixin, LogoutView):
-    next_page = reverse_lazy('home')
-    success_message = "Вы разлогинены"
-
-    def dispatch(self, request, *args, **kwargs):
-        messages.info(request, self.success_message)
-        return super().dispatch(request, *args, **kwargs)
+# class CustomLoginView(SuccessMessageMixin, LoginView):
+#     template_name = 'users/login.html'
+#     success_message = "Вы залогинены"
+#     next_page = reverse_lazy('home')
+#
+# class CustomLogoutView(SuccessMessageMixin, LogoutView):
+#     next_page = reverse_lazy('home')
+#     success_message = "Вы разлогинены"
+#
+#     def dispatch(self, request, *args, **kwargs):
+#         messages.info(request, self.success_message)
+#         return super().dispatch(request, *args, **kwargs)

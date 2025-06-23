@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
 
+from task_manager.views import CustomLoginView, CustomLogoutView
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html'), name='home'),
@@ -26,4 +27,6 @@ urlpatterns = [
     path('labels/', include('labels.urls', namespace='labels')),
     path('tasks/', include('tasks.urls', namespace='tasks')),
     path("admin/", admin.site.urls),
+    path('login/', CustomLoginView.as_view(), name='login'),
+    path('logout/', CustomLogoutView.as_view(), name='logout'),
 ]
