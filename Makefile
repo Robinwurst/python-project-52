@@ -18,5 +18,6 @@ render-start:
 test:
 	uv run python3 manage.py test
 
+
 format-app:
 	uv run ruff check --fix task_manager
