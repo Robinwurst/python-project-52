@@ -1,6 +1,7 @@
 install:
 	uv sync --no-cache
-
+	uv pip install -e .
+	uv pip install django-bootstrap5
 migrate:
 	uv run python manage.py migrate
 
