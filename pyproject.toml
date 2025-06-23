@@ -26,6 +26,8 @@ dependencies = [
   "uv",
   "django-filter>=25.1",
   "rollbar",
+  "pytest>=8.4.1",
+  "pytest-django>=4.11.1",
 ]
 
 [project.optional-dependencies]
