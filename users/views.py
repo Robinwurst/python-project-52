@@ -47,4 +47,9 @@ class UserDeleteView(LoginRequiredMixin, ProtectedDeleteMixin, SuccessMessageMix
 class CustomLoginView(SuccessMessageMixin, LoginView):
     template_name = 'users/login.html'
     success_message = "Вы залогинены"
-    next_page = reverse_lazy('tasks:index')
+    next_page = reverse_lazy('home')
+
+class CustomLogoutView(SuccessMessageMixin, LoginView):
+    template_name = 'users/login.html'
+    success_message = "Вы разлогинены"
+    next_page = reverse_lazy('home')
