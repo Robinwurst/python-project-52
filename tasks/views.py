@@ -9,6 +9,7 @@ from django.views.generic import (
 from django_filters.views import FilterView
 
 from task_manager.mixins import ProtectedDeleteMixin, OnlyAuthorMixin
+from users.models import User
 from .filters import TaskFilter
 from .forms import TaskForm
 from .models import Task
@@ -47,6 +48,11 @@ class TaskCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     def form_valid(self, form):
         form.instance.creator = self.request.user
         return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['users'] = User.objects.all()
+        return context
 
 
 class TaskUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
