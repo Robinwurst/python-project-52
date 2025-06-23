@@ -1,24 +1,17 @@
 # tasks/views.py
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import (
-    ListView, CreateView, UpdateView, DeleteView, DetailView
+    CreateView, UpdateView, DeleteView, DetailView
 )
 from django_filters.views import FilterView
-from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 from task_manager.mixins import ProtectedDeleteMixin, OnlyAuthorMixin
-from .models import Task
-from .forms import TaskForm
 from .filters import TaskFilter
-from django.http import HttpResponse
-
-
-def index(request):
-    a = None
-    a.hello() # Creating an error with an invalid line of code
-    return HttpResponse("Hello, world. You're at the pollapp index.")
+from .forms import TaskForm
+from .models import Task
 
 TASKS_INDEX_URL = 'tasks:index'
 
