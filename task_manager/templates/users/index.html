@@ -10,9 +10,9 @@
 <table class="table table-striped align-middle">
     <thead>
         <tr>
-            <th>ID</th>
+            <th>{% trans "ID" %}</th>
+            <th>{% trans "Имя пользователя" %}</th>
             <th>{% trans "Полное имя" %}</th>
-            <th>{% trans "Логин" %}</th>
             <th>{% trans "Дата создания" %}</th>
             <th></th>
         </tr>
@@ -21,8 +21,8 @@
         {% for user in users %}
         <tr>
             <td>{{ user.id }}</td>
-            <td>{{ user.get_full_name|default:user.username }}</td>
             <td>{{ user.username }}</td>
+            <td>{{ user.get_full_name|default:user.username }}</td>
             <td>{{ user.date_joined|date:"d.m.Y H:i" }}</td>
             <td class="text-end">
                 <div class="d-flex gap-2 justify-content-end">

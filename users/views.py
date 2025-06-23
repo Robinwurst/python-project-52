@@ -1,4 +1,6 @@
+from django.contrib.auth.views import LoginView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
 from django.views.generic import (
     CreateView,
     UpdateView,
@@ -41,3 +43,8 @@ class UserDeleteView(LoginRequiredMixin, ProtectedDeleteMixin, SuccessMessageMix
     success_message = "Пользователь успешно удален"
     def related_filter(self):
         return {'creator': self.get_object()}
+
+class CustomLoginView(SuccessMessageMixin, LoginView):
+    template_name = 'users/login.html'
+    success_message = "Вы залогинены"
+    next_page = reverse_lazy('tasks:index')

@@ -78,28 +78,23 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>{% trans "Название" %}</th>
+            <th>{% trans "ID" %}</th>
+            <th>{% trans "Имя" %}</th>
             <th>{% trans "Статус" %}</th>
-            <th>{% trans "Исполнитель" %}</th>
             <th>{% trans "Автор" %}</th>
-            <th>{% trans "Метки" %}</th>
+            <th>{% trans "Исполнитель" %}</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         {% for task in tasks %}
         <tr>
+            <td>{{ task.id }}</td>
             <td><a href="{% url 'tasks:detail' task.id %}">{{ task.name }}</a></td>
             <td>{{ task.status }}</td>
-            <td>{{ task.executor }}</td>
             <td>{{ task.creator }}</td>
-            <td>
-                {% for label in task.labels.all %}
-                    {{ label.name }}{% if not forloop.last %}, {% endif %}
-                {% empty %}
-                    &mdash;
-                {% endfor %}
-            </td>
+            <td>{{ task.executor }}</td>
+
             <td class="text-end">
                 <a href="{% url 'tasks:update' task.id %}" class="btn btn-sm btn-primary">{% trans "Редактировать" %}</a>
                 <a href="{% url 'tasks:delete' task.id %}" class="btn btn-danger btn-sm">{% trans "Удалить" %}</a>
