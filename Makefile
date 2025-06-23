@@ -1,23 +1,33 @@
-install:
-	uv sync --no-cache
-	uv pip install -e .
-	uv pip install django-bootstrap5
-migrate:
-	uv run python manage.py migrate
+lint:
+	uv run flake8 task_manager
 
-collectstatic:
-	uv run python manage.py collectstatic --noinput
+install:
+	uv sync
+
+dev:
+	uv run python3 manage.py runserver
+
+migrate:
+	uv run python3 manage.py makemigrations
+	uv run python3 manage.py migrate
 
 build:
 	./build.sh
 
-render-start:
-	curl -LsSf https://astral.sh/uv/install.sh  | sh && \
-    uv run gunicorn task_manager.wsgi
+start:
+	uv run gunicorn task_manager.asgi:application -k uvicorn.workers.UvicornWorker
 
 test:
 	uv run python3 manage.py test
 
+testcov:
+	uv run coverage run --source='.' manage.py test
 
-format-app:
-	uv run ruff check --fix task_manager
+makemessages:
+	uv run django-admin makemessages --ignore="static" --ignore=".env"  -l ru
+
+compilemessages:
+	uv run django-admin compilemessages
+
+ruff:
+	ruff check --fix --select I
