@@ -1,33 +1,24 @@
-lint:
-	uv run flake8 task_manager
-
 install:
-	uv sync
-
-dev:
-	uv run python3 manage.py runserver
+	uv sync --no-cache
 
 migrate:
 	uv run python3 manage.py makemigrations
 	uv run python3 manage.py migrate
 
+collectstatic:
+	uv run python manage.py collectstatic --noinput
+
 build:
 	./build.sh
 
-start:
-	uv run gunicorn task_manager.asgi:application -k uvicorn.workers.UvicornWorker
+render-start:
+	curl -LsSf https://astral.sh/uv/install.sh | sh && uv run gunicorn task_manager.wsgi
 
 test:
 	uv run python3 manage.py test
 
-testcov:
-	uv run coverage run --source='.' manage.py test
-
-makemessages:
-	uv run django-admin makemessages --ignore="static" --ignore=".env"  -l ru
-
 compilemessages:
 	uv run django-admin compilemessages
 
-ruff:
-	ruff check --fix --select I
+makemessages:
+	uv run django-admin makemessages --ignore="static" --ignore=".env"  -l ru

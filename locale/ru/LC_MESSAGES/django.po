@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-23 19:34+0300\n"
+"POT-Creation-Date: 2025-06-23 20:13+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -65,7 +65,7 @@ msgid "Создать статус"
 msgstr ""
 
 #: statuses/views.py:38 task_manager/templates/labels/create.html:12
-#: task_manager/templates/statuses/create.html:12 tasks/views.py:51
+#: task_manager/templates/statuses/create.html:12 tasks/views.py:44
 msgid "Создать"
 msgstr ""
 
@@ -78,7 +78,7 @@ msgid "Редактировать статус"
 msgstr ""
 
 #: statuses/views.py:50 task_manager/templates/labels/update.html:12
-#: task_manager/templates/statuses/update.html:12 tasks/views.py:68
+#: task_manager/templates/statuses/update.html:12 tasks/views.py:61
 msgid "Обновить"
 msgstr ""
 
@@ -233,7 +233,7 @@ msgstr ""
 msgid "Автор"
 msgstr ""
 
-#: task_manager/templates/tasks/index.html:8 tasks/views.py:50
+#: task_manager/templates/tasks/index.html:8 tasks/views.py:43
 msgid "Создать задачу"
 msgstr ""
 
@@ -304,19 +304,19 @@ msgstr ""
 msgid "Метка"
 msgstr ""
 
-#: tasks/views.py:47
+#: tasks/views.py:40
 msgid "Задача успешно создана"
 msgstr ""
 
-#: tasks/views.py:64
+#: tasks/views.py:57
 msgid "Задача успешно обновлена"
 msgstr ""
 
-#: tasks/views.py:67
+#: tasks/views.py:60
 msgid "Редактировать задачу"
 msgstr ""
 
-#: tasks/views.py:83
+#: tasks/views.py:76
 msgid "Невозможно удалить задачу, потому что она используется"
 msgstr ""
 
