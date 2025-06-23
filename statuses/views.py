@@ -51,9 +51,10 @@ class StatusUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     }
 
 
-class StatusDeleteView(ProtectedDeleteMixin, DeleteView):
+class StatusDeleteView(ProtectedDeleteMixin, SuccessMessageMixin, DeleteView):
     model = Status
     template_name = 'statuses/delete.html'
+    success_message = _("Статус успешно удален")
     success_url = reverse_lazy('statuses:index')
     protected_message = _("Невозможно удалить статус, потому что он используется в задачах")
     protected_url = reverse_lazy('statuses:index')
