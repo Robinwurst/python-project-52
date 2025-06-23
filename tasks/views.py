@@ -12,7 +12,13 @@ from task_manager.mixins import ProtectedDeleteMixin, OnlyAuthorMixin
 from .models import Task
 from .forms import TaskForm
 from .filters import TaskFilter
+from django.http import HttpResponse
 
+
+def index(request):
+    a = None
+    a.hello() # Creating an error with an invalid line of code
+    return HttpResponse("Hello, world. You're at the pollapp index.")
 
 TASKS_INDEX_URL = 'tasks:index'
 

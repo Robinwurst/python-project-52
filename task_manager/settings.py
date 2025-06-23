@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import rollbar
 from pathlib import Path
 import os
 import dj_database_url
@@ -63,6 +63,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
 ]
 
 ROOT_URLCONF = 'task_manager.urls'
@@ -97,28 +98,7 @@ DATABASES = {
     )
 }
 
-# MIGRATION_MODULES = {
-#     'admin': 'django.contrib.admin.migrations',
-#     'auth': 'django.contrib.auth.migrations',
-#     'contenttypes': 'django.contrib.contenttypes.migrations',
-# }
-# Password validation
-# https://docs.djangoproject.com/en/4.2/ref/settings/ #auth-password-validators
 
-# AUTH_PASSWORD_VALIDATORS = [
-#     {
-#         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-#     },
-#     {
-#         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-#     },
-#     {
-#         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-#     },
-#     {
-#         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-#     },
-# ]
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
@@ -131,8 +111,14 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru'
+
+TIME_ZONE = 'UTC'
+
 USE_I18N = True
+
+USE_L10N = True
+
 USE_TZ = True
 
 
@@ -153,6 +139,13 @@ LOGIN_REDIRECT_URL = reverse_lazy("home")
 LOGOUT_REDIRECT_URL = reverse_lazy('home')
 
 
+ROLLBAR = {
+    'access_token': os.getenv('ACCESS_TOKEN'),
+    'environment': 'development' if DEBUG else 'production',
+    'code_version': '1.0',
+}
+
+LOCALE_PATHS = (os.path.join(BASE_DIR, 'locale'),)
 
 if not DEBUG:
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
