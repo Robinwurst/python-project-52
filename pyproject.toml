@@ -7,6 +7,10 @@ requires-python = ">=3.13"
 packages = [
   { include = "task_manager" },
 ]
+
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 dependencies = [
   "Django>=5.0",
   "gunicorn",
