@@ -29,7 +29,7 @@ load_dotenv()
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', 'False') == 'True'
+DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 
 ALLOWED_HOSTS = ['webserver', '127.0.0.1', 'localhost', 'https://python-project-52-1-1mgn.onrender.com', '*']
 
@@ -89,48 +89,44 @@ WSGI_APPLICATION = 'task_manager.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/ #databases
 
-# DATABASES = {
-#     'default': dj_database_url.config(default=os.getenv('DATABASE_URL'),
-#                                       conn_max_age=600,
-#                                       conn_health_checks=True,
-#                                       ) }
-if os.environ.get("DATABASE_URL") is not None:
-    DATABASES = {'default': dj_database_url.config(default=os.getenv('DATABASE_URL'),
-                                      conn_max_age=600,
-                                      conn_health_checks=True,
-                                      ) }
-
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
-
-MIGRATION_MODULES = {
-    'admin': 'django.contrib.admin.migrations',
-    'auth': 'django.contrib.auth.migrations',
-    'contenttypes': 'django.contrib.contenttypes.migrations',
+DATABASES = {
+    'default': dj_database_url.config(
+        # Replace this value with your local database's connection string.
+        default=os.getenv('DATABASE_URL'),
+        conn_max_age=600
+    )
 }
+
+# MIGRATION_MODULES = {
+#     'admin': 'django.contrib.admin.migrations',
+#     'auth': 'django.contrib.auth.migrations',
+#     'contenttypes': 'django.contrib.contenttypes.migrations',
+# }
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/ #auth-password-validators
 
+# AUTH_PASSWORD_VALIDATORS = [
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+#     },
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+#     },
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+#     },
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+#     },
+# ]
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "OPTIONS": {
+            "min_length": 3,
+        },
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
