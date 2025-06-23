@@ -46,8 +46,8 @@ class StatusUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     success_url = reverse_lazy(STATUS_INDEX_URL)
     success_message = _("Статус успешно изменен")
     extra_context = {
-        'title': _('Редактировать статус'),
-        'button_name': _('Обновить')
+        'title': _('Изменить статус'),
+        'button_name': _('Изменить')
     }
 
 
