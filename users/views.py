@@ -23,10 +23,11 @@ class UserListView(ListView):
     def get_queryset(self):
         return super().get_queryset().order_by('id')
 
-class UserCreateView(CreateView):
+class UserCreateView(SuccessMessageMixin, CreateView):
     form_class = UserCreateForm
     template_name = 'users/create.html'
     success_url = reverse_lazy('login')
+    success_message = _('Пользователь успешно зарегистрирован')
 
 class UserUpdateView(LoginRequiredMixin, UpdateView):
     model = User
