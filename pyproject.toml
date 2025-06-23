@@ -36,7 +36,13 @@ dev = [
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["task_manager"]
+packages = [
+    "task_manager",
+    "users",
+    "statuses",
+    "labels",
+    "tasks"
+]
 
 [tool.coverage.run]
 source = ["task_manager"]
