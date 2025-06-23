@@ -54,7 +54,7 @@ class TaskUpdateView(LoginRequiredMixin, OnlyAuthorMixin, SuccessMessageMixin, U
     form_class = TaskForm
     template_name = 'tasks/update.html'
     success_url = reverse_lazy(TASKS_INDEX_URL)
-    success_message = _("Задача успешно обновлена")
+    success_message = _("Задача успешно изменена")
 
     extra_context = {
         'title': _('Редактировать задачу'),

@@ -44,7 +44,7 @@ class StatusUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = StatusCreateForm
     template_name = f'{STATUS_TEMPLATE_PATH}update.html'
     success_url = reverse_lazy(STATUS_INDEX_URL)
-    success_message = _("Статус успешно обновлён")
+    success_message = _("Статус успешно изменен")
     extra_context = {
         'title': _('Редактировать статус'),
         'button_name': _('Обновить')
