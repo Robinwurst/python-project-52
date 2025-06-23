@@ -6,5 +6,5 @@ export PYTHONPATH=/project/code
 cd /project/code
 uv run pytest
 
-make install && make collectstatic && make migrate
+make install && make collectstatic && make compilemessages && make migrate
 
