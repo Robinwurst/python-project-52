@@ -38,12 +38,13 @@ class LabelUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     success_message = _("Метка успешно изменена")
 
 
-class LabelDeleteView(ProtectedDeleteMixin, DeleteView):
+class LabelDeleteView(ProtectedDeleteMixin, SuccessMessageMixin, DeleteView):
     model = Label
     template_name = 'labels/delete.html'
     success_url = reverse_lazy('labels:index')
     protected_message = _("Невозможно удалить метку, потому что она используется в задачах")
     protected_url = reverse_lazy('labels:index')
+    success_message = _("Метка успешно удалена")
 
     def delete(self, request, *args, **kwargs):
         label = self.get_object()
