@@ -21,7 +21,7 @@ class Task(models.Model):
         on_delete=models.PROTECT,
         null=True,
         related_name='executed_tasks',
-        verbose_name=_('Ответственный')
+        verbose_name=_('Исполнитель')
     )
     creator = models.ForeignKey(
         User,
@@ -33,7 +33,7 @@ class Task(models.Model):
         Label,
         related_name='tasks',
         blank=True,
-        verbose_name=_('Метка')
+        verbose_name=_('Метки')
     )
     created_at = models.DateTimeField(auto_now_add=True)
 

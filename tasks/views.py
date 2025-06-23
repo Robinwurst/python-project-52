@@ -57,8 +57,8 @@ class TaskUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     success_message = _("Задача успешно изменена")
 
     extra_context = {
-        'title': _('Редактировать задачу'),
-        'button_name': _('Обновить')
+        'title': _('Изменить задачу'),
+        'button_name': _('Изменить')
     }
 
 
