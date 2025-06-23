@@ -24,7 +24,7 @@
             <td>{{ label.created_at|date:"d.m.Y H:i" }}</td>
             <td class="text-end">
                 <div class="d-flex gap-2 justify-content-end">
-                    <a href="{% url 'labels:update' label.id %}" class="btn btn-sm btn-primary">{% trans "Редактировать" %}</a>
+                    <a href="{% url 'labels:update' label.id %}" class="btn btn-sm btn-primary">{% trans "Изменить" %}</a>
                     <a href="{% url 'labels:delete' label.id %}" class="btn btn-sm btn-danger">{% trans "Удалить" %}</a>
                 </div>
             </td>
