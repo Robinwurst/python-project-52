@@ -49,10 +49,7 @@ class TaskCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         form.instance.creator = self.request.user
         return super().form_valid(form)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['users'] = User.objects.all()
-        return context
+
 
 
 class TaskUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
