@@ -17,12 +17,12 @@
     {% include "includes/navbar.html" %}
 </header>
 
-<div class="container flex-grow-1 py-5">
-
+<main class="flex-grow-1">
+    <div class="container py-5">
         {% bootstrap_messages %}
         {% block content %}{% endblock %}
-</div>
-
+    </div>
+</main>
 {% if is_paginated %}
 <nav aria-label="Page navigation" class="mt-4">
     <ul class="pagination justify-content-center">
