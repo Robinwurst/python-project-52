@@ -24,6 +24,7 @@ class Task(models.Model):
         User,
         on_delete=models.PROTECT,
         null=True,
+        blank=True,
         related_name='executed_tasks',
         verbose_name=_('Исполнитель')
     )
