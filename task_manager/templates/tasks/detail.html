@@ -8,15 +8,15 @@
     <table class="table table-bordered">
       <tbody>
         <tr>
-          <th scope="row" class="w-25">{% trans "Status" %}</th>
+          <th scope="row" class="w-25">{% trans "Статус" %}</th>
           <td>{{ task.status.name }}</td>
         </tr>
         <tr>
-          <th scope="row">{% trans "Author" %}</th>
+          <th scope="row">{% trans "Автор" %}</th>
           <td>{{ task.author.get_full_name }}</td>
         </tr>
         <tr>
-          <th scope="row">{% trans "Performer" %}</th>
+          <th scope="row">{% trans "Исполнитель" %}</th>
           <td>
             {% if task.executor %}
               {{ task.executor.get_full_name }}
@@ -26,7 +26,7 @@
           </td>
         </tr>
         <tr>
-          <th scope="row">{% trans "Labels" %}</th>
+          <th scope="row">{% trans "Метки" %}</th>
           <td>
             {% if task.labels.all %}
               {% for label in task.labels.all %}
@@ -40,7 +40,7 @@
           </td>
         </tr>
         <tr>
-          <th scope="row">{% trans "Created at" %}</th>
+          <th scope="row">{% trans "Дата создания" %}</th>
           <td>{{ task.created_at|date:"d.m.Y" }}</td>
         </tr>
       </tbody>
