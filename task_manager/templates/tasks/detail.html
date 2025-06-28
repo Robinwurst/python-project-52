@@ -1,26 +1,59 @@
 {% extends "base.html" %}
 {% load i18n %}
 
-{% block title %}{% trans "Просмотр задачи" %}{% endblock %}
-
 {% block content %}
-<h1>{% trans "Просмотр задачи" %}</h1>
+  <div class="card shadow-sm p-4">
+    <h1 class="mb-2">{{ task.name }}</h1>
+    <p class="mb-4">{{ task.description|linebreaksbr }}</p>
+    <table class="table table-bordered">
+      <tbody>
+        <tr>
+          <th scope="row" class="w-25">{% trans "Status" %}</th>
+          <td>{{ task.status.name }}</td>
+        </tr>
+        <tr>
+          <th scope="row">{% trans "Author" %}</th>
+          <td>{{ task.author.get_full_name }}</td>
+        </tr>
+        <tr>
+          <th scope="row">{% trans "Performer" %}</th>
+          <td>
+            {% if task.executor %}
+              {{ task.executor.get_full_name }}
+            {% else %}
+              —
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">{% trans "Labels" %}</th>
+          <td>
+            {% if task.labels.all %}
+              {% for label in task.labels.all %}
+                <span class="badge text-bg-warning">{{ label.name }}</span>
+              {% empty %}
+                —
+              {% endfor %}
+            {% else %}
+              —
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">{% trans "Created at" %}</th>
+          <td>{{ task.created_at|date:"d.m.Y" }}</td>
+        </tr>
+      </tbody>
+    </table>
 
-<ul>
-    <li><strong>{% trans "Название" %}:</strong> {{ task.name }}</li>
-    <li><strong>{% trans "Описание" %}:</strong> {{ task.description }}</li>
-    <li><strong>{% trans "Статус" %}:</strong> {{ task.status }}</li>
-    <li><strong>{% trans "Исполнитель" %}:</strong> {{ task.executor }}</li>
-    <li><strong>{% trans "Автор" %}:</strong> {{ task.creator }}</li>
-    <li><strong>{% trans "Метки" %}:</strong>
-        {% for label in task.labels.all %}
-            {{ label.name }}{% if not forloop.last %}, {% endif %}
-        {% empty %}
-            &mdash;
-        {% endfor %}
-    </li>
-</ul>
-
-<a href="{% url 'tasks:update' task.id %}" class="btn btn-warning">{% trans "Редактировать" %}</a>
-<a href="{% url 'tasks:delete' task.id %}" class="btn btn-danger">{% trans "Удалить" %}</a>
+    <div class="mt-3 d-flex justify-content-end">
+      <a href="{% url 'tasks:update' task.id %}" class="btn btn-outline-dark me-2">
+        {% trans "Edit" %}
+      </a>
+      <a href="{% url 'tasks:delete' task.id %}" class="btn btn-warning">
+        {% trans "Delete" %}
+      </a>
+    </div>
+  </div>
 {% endblock %}
+
